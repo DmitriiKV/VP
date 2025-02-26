@@ -43,12 +43,13 @@ namespace KDM {
     }
 
     void MyMenu::print() {
-    cout << MyMenu::getTitle << endl;
-    for (size_t i{}; i < count; ++i) {
-        std::cout << i + 1 << ". ";
-        items[i].print();
-        std::cout << std::endl;
-        }
+        string menutitle = MyMenu::getTitle();
+        cout << "\n" << menutitle << endl;
+        for (size_t i{}; i < count; ++i) {
+            cout << i + 1 << ". ";
+            items[i].print();
+            cout << endl;
+            }
     }
 
     int MyMenu::runCommand() {
