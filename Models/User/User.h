@@ -1,5 +1,5 @@
-#ifndef MYMENU_H
-#define MYMENU_H
+// #ifndef MYMENU_H
+// #define MYMENU_H
 
 #pragma once
 
@@ -10,6 +10,9 @@ using namespace std;
 class User {
     public:
         User(string, string, int, string, string);
+        typedef int(*Func)();
+        Func func{};
+        string item_name{};
         // string setName();
         string getName();
         // string setSurname();
@@ -30,4 +33,4 @@ class User {
         User *items{};
 };
 
-#endif MYMENU_H
+#sendif MYMENU_H
