@@ -1,11 +1,10 @@
-#include "MyMenu/MyMenu.h"
+#include "Models/User/User.h"
 
 #include <iostream>
 #include <cmath>
 #include <string>
 
 using namespace std;
-using namespace KDM;
 
 #pragma region функции-заглушки
 int f1() {
@@ -38,14 +37,10 @@ int f0() {
 
 #pragma endregion
 
-const int ITEMS_NUMBER = 6;
+const int ITEMS_NUMBER = 1;
 
 
 int main() {
-    MenuItem items[ITEMS_NUMBER] {MenuItem{"first item", f1}, 
-    MenuItem{"second item", f2}, 
-    MenuItem{"third item", f3}, MenuItem{"fourth item", f4}, MenuItem{"fifth item", f5}, MenuItem{"exit", f0}};
-    MyMenu menu("Меню", items, ITEMS_NUMBER);
-    while (menu.runCommand()) {};
-    return 0;
+    User items[ITEMS_NUMBER] {User("Ivan", "Ivanov", 18, "ii2006", "12345678")};
+    cout << "items[0]" << endl;
 }
