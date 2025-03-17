@@ -1,1 +1,2 @@
-g++ ./main.cpp ./Models/User/User.cpp; ./a.out
+g++ ./main.cpp ./Models/User/User.cpp ./Models/Rocket/Rocket.cpp ./Models/Astronaut/Astronaut.cpp ./Models/Engineer/Engineer.cpp; ./a.out
+g++ ./main.cpp ./Models/User/User.cpp ./Models/Rocket/Rocket.cpp ./Models/Astronaut/Astronaut.cpp ./Models/Engineer/Engineer.cpp; ./a.exe
