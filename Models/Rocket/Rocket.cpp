@@ -31,7 +31,7 @@ void Rocket::setType() {
 }
 
 void Rocket::setPayloadCapacity() {
-    wcout << L"Введите грузоподъёмность ракеты: ";
+    wcout << L"Введите грузоподъёмность ракеты (в тоннах): ";
     wcin >> m_payloadCapacity;
     wcin.ignore();
 }
@@ -45,6 +45,6 @@ void Rocket::PrintInfo() {
     wcout << L"\nДанные о ракете\n" << endl;
     wcout << L"Название >> " << m_name << endl;
     wcout << L"Тип >> " << m_type << endl;
-    wcout << L"Грузоподъемность >> " << m_payloadCapacity << " тонн" << endl;
+    wcout << L"Грузоподъемность в тоннах >> " << m_payloadCapacity << " " << endl;
     wcout << L"Назначение >> " << m_purpose << endl;
 }
