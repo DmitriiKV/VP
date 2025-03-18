@@ -8,22 +8,25 @@
 using namespace std;
 
 int main(){
-    setlocale(LC_ALL, "Russian");  
+    setlocale(LC_ALL, "ru_RU.UTF-8");
     Astronaut astronaut;
+    wcout << L" <<Космонавт>> " << endl;
     astronaut.NewItem();
     astronaut.setMission();
-    astronaut.PrintItem();
     wcout << L"Должность: " << astronaut.getMission() << endl;
+    astronaut.PrintItem();
     astronaut.PrintInfo();
 
     Engineer engineer;
-    astronaut.NewItem();
+    wcout << L"\n <<Инженер>> " << endl;
+    engineer.NewItem();
     engineer.setSpecialisation();
-    engineer.PrintItem();
     wcout << L"Специализация: " << engineer.getSpecialisation() << endl;
+    engineer.PrintItem();
     engineer.PrintInfo();
 
     Rocket rocket;
+    wcout << L"\n\n <<Ракета>> \n" << endl;
     rocket.setName();
     rocket.setType();
     rocket.setPayloadCapacity();
