@@ -20,7 +20,7 @@ void User::NewItem() {
     getline(wcin, m_password);
 }
 
-void User::PrintItem() {
+void User::PrintItem() const {
     wcout << L"\nДанные пользователя\n" << endl;
     wcout << L"Имя >> " << m_name << endl;
     wcout << L"Фамилия >> " << m_surname << endl;
@@ -29,23 +29,23 @@ void User::PrintItem() {
     wcout << L"Пароль >> " << m_password << endl;
 } 
 
-wstring User::getName(){
+wstring User::getName() const {
     return m_name;
 }
     
-wstring User::getSurname(){
+wstring User::getSurname() const {
     return m_surname;
 }
 
-int User::getAge(){
+int User::getAge() const {
     return m_age;
 }
     
-wstring User::getLogin(){
+wstring User::getLogin() const {
     return m_login;
 }
     
-wstring User::getPassword(){
+wstring User::getPassword() const {
     return m_password;
 }
     

@@ -7,7 +7,7 @@
 
 using namespace std;
 class User {
-    private:
+    protected:
     wstring m_name{};
     wstring m_surname{};
     int m_age{};
@@ -17,10 +17,10 @@ class User {
     public:
     virtual void PrintInfo() = 0;
     void NewItem();
-    void PrintItem();
-    wstring getName();
-    wstring getSurname();
-    int getAge();
-    wstring getLogin();
-    wstring getPassword();
+    void PrintItem() const;
+    wstring getName() const;
+    wstring getSurname() const;
+    int getAge() const;
+    wstring getLogin() const;
+    wstring getPassword() const;
 };
