@@ -108,6 +108,7 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "locale": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "sstream": "cpp"
   }
 }

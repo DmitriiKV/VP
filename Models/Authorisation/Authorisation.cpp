@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <sstream> // Для istringstream
+#include <sstream>
 
 using namespace std;
 
@@ -52,5 +52,50 @@ wstring Authorisation::SignUp(){
     file << login << " " << password << " " << role << endl;
     file.close();
     wcout << L"Вы успешно зарегистрировались!" << endl;
+    return L"";
+}
+
+void Authorisation::ExportToFile(vector<Astronaut*>& astronauts, vector<Engineer*>& engineers){
+    wofstream file("user.txt", ios::app);
+    if (!file.is_open()){
+        wcout << L"Ошибка открытия файла!" << endl;
+    }
+    for (Astronaut* emp : astronauts){
+        file << emp->getLogin() << " " << emp ->getPassword() << " " << "user" << endl;
+    }
+    for (Engineer* sup : engineers){
+        file << sup->getLogin() << " " << sup->getPassword() << " " << "user" << endl;
+    }
+
+    file.close();
+    wcout << L"Записи успешно сохранены в файл!" << endl;
+}
+
+wstring Authorisation::AuthorisationMenu(){
+    while (true){
+        wcout << L"1 - Войти" << endl;
+        wcout << L"2 - Зарегистрироваться" << endl;
+        wcout << endl;
+        int command;
+        wcout << L"Введите команду >> ";
+        wcin >> command;
+        wcin.ignore();
+
+        switch(command){
+            case 1:{
+                wstring role = Authorisation::SignIn();
+                if (!role.empty()){
+                return role;
+                }
+                break;
+            }
+            break;
+            case 2:
+                Authorisation::SignUp();
+                break;
+            default:
+                wcout << L"Неверная команда! Попробуйте еще раз" << endl;
+        }
+    }
     return L"";
 }

@@ -1,3 +1,6 @@
+#ifndef ASTRONAUT_H
+#define ASTRONAUT_H
+
 #include "../User/User.h"
 
 using namespace std; 
@@ -16,3 +19,4 @@ class Astronaut : public User {
     bool operator>(const Astronaut& other) const;
 };
 
+#endif

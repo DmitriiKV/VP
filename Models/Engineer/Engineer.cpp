@@ -19,9 +19,9 @@ void Engineer::PrintInfo() {
 }
 
 wostream& operator<<(wostream& eout, const Engineer& engineer) {
-    eout << L"Космонавт: " << engineer.getSurname() << L" " << engineer.getName() << endl;
+    eout << L"Инженер: " << engineer.getSurname() << L" " << engineer.getName() << endl;
     eout << L"Возраст: " << engineer.getAge() << endl;
-    eout << L"Миссия: " << engineer.getSpecialisation() << endl;
+    eout << L"Специализация: " << engineer.getSpecialisation() << endl;
     return eout;
 }
 
