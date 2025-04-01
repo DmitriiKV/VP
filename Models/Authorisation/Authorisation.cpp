@@ -1,4 +1,5 @@
 #include "Authorisation.h"
+#include "../Utils/Utils.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -8,13 +9,13 @@ using namespace std;
 
 wstring Authorisation::SignIn(){
     wstring login, password;
-    wcout << L"Введите логин: ";
+    wcout << L"\nВведите логин: ";
     getline(wcin, login);
     wcout << L"Введите пароль: ";
     getline(wcin, password);
     wifstream file("user.txt");
     if (!file.is_open()){
-        wcout << L"Ошибка открытия файла!" << endl;
+        wcout << L"\nОшибка открытия файла!" << endl;
         return L"";
     }
     wstring line;
@@ -32,26 +33,31 @@ wstring Authorisation::SignIn(){
             return wissRole;
         }
     }
-    wcout << L"Неверный логин или пароль!" << endl; 
+    wcout << L"\nНеверный логин или пароль!" << endl; 
     return L"";
 }
 
 wstring Authorisation::SignUp(){
     wstring login, password, role;
-    wcout << L"Введите логин: ";
+    wcout << L"\nВведите логин >> ";
     getline(wcin, login);
-    wcout << L"Введите пароль: ";
+    wcout << L"Введите пароль >> ";
     getline(wcin, password);
-    wcout << L"Введите роль (admin/user): ";
-    getline(wcin, role);
+    while (role != L"admin" and role != L"user") {
+        wcout << L"Введите роль (admin/user) >> ";
+        getline(wcin, role);
+        if (role != L"admin" and role != L"user") {
+            wcout << L"Введите 'admin' или 'user'!" << endl;
+        }
+    }
     wofstream file("user.txt", ios::app);
     if (!file.is_open()){
-        wcout << L"Ошибка открытия файла!" << endl;
+        wcout << L"\nОшибка открытия файла!" << endl;
         return L"";
     }
     file << login << " " << password << " " << role << endl;
     file.close();
-    wcout << L"Вы успешно зарегистрировались!" << endl;
+    wcout << L"\nВы успешно зарегистрировались!" << endl;
     return L"";
 }
 
@@ -75,14 +81,15 @@ wstring Authorisation::AuthorisationMenu(){
     while (true){
         wcout << L"1 - Войти" << endl;
         wcout << L"2 - Зарегистрироваться" << endl;
+        wcout << L"0 - Выход" << endl;
         wcout << endl;
-        int command;
+        int command(-1);
         wcout << L"Введите команду >> ";
-        wcin >> command;
+        command = GetCorrectIntValue();
         wcin.ignore();
 
         switch(command){
-            case 1:{
+            case 1: {
                 wstring role = Authorisation::SignIn();
                 if (!role.empty()){
                 return role;
@@ -93,8 +100,12 @@ wstring Authorisation::AuthorisationMenu(){
             case 2:
                 Authorisation::SignUp();
                 break;
+            case 0:
+                wcout << L"Работа программы завершена." << endl; 
+                return L"";
+                break;
             default:
-                wcout << L"Неверная команда! Попробуйте еще раз" << endl;
+                wcout << L"Неверная команда! Попробуйте еще раз.\n" << endl;
         }
     }
     return L"";

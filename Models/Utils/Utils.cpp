@@ -13,11 +13,12 @@ using namespace std;
 
 void SortAstronauts(vector<Astronaut*>& astronauts){
     int sortcommand;
-    wcout << L"Сортировать:" << endl;
+    wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
     wcout << L"2 - По убыванию" << endl;
-    wcout << L"Введите команду >>";
-    wcin >> sortcommand;
+    wcout << L"\nВведите команду >> ";
+    sortcommand = GetCorrectIntValue();
+    wcout << endl;
     switch(sortcommand){
         case 1: 
             sort(astronauts.begin(), astronauts.end(), [](Astronaut* a, Astronaut* b){
@@ -37,11 +38,11 @@ void SortAstronauts(vector<Astronaut*>& astronauts){
 
 void SortEngineers(vector<Engineer*>& engineers){
     int sortcommand;
-    wcout << L"Сортировать:" << endl;
+    wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
     wcout << L"2 - По убыванию" << endl;
-    wcout << L"Введите команду >>";
-    wcin >> sortcommand;
+    wcout << L"\nВведите команду >> ";
+    sortcommand = GetCorrectIntValue();
     switch(sortcommand){
         case 1: 
             sort(engineers.begin(), engineers.end(), [](Engineer* a, Engineer* b){
@@ -66,9 +67,8 @@ void DeleteAstronaut(vector<Astronaut*>& astronauts){
         wcout << i + 1 << L" ";
         astronauts[i]->PrintInfo();
     }
-
-    wcout << L"Введите индекс удаляемой записи: ";
-    wcin >> index;
+    wcout << L"\nВведите номер удаляемой записи >> ";
+    index = GetCorrectIntValue();
     delete astronauts[index - 1];
 }
 
@@ -80,27 +80,28 @@ void DeleteEngineer(vector<Engineer*>& engineers){
         engineers[i]->PrintInfo();
     }
 
-    wcout << L"Введите индекс удаляемой записи: ";
-    wcin >> index;
+    wcout << L"Введите номер удаляемой записи >> ";
+    index = GetCorrectIntValue();
 
     delete engineers[index - 1];
 }
 
 void FilterAstronaut(vector<Astronaut*>& astronauts) {
     int filterCommand;
-    wcout << L"Фильтровать космонавтов по:" << endl;
+    wcout << L"\nФильтровать космонавтов по:" << endl;
     wcout << L"1 - Фамилии" << endl;
     wcout << L"2 - Имени" << endl;
     wcout << L"3 - Возрасту" << endl;
     wcout << L"4 - Миссии" << endl;
-    wcout << L"Введите команду >>";
+    wcout << L"\nВведите команду >>";
     wcin >> filterCommand;
+    wcout << endl;
     wcin.ignore();
 
     switch(filterCommand) {
         case 1: {
             wstring surname;
-            wcout << L"Введите фамилию для фильтрации: ";
+            wcout << L"Введите фамилию для фильтрации >> ";
             getline(wcin, surname);
             
             for (Astronaut* a : astronauts) {
@@ -112,7 +113,7 @@ void FilterAstronaut(vector<Astronaut*>& astronauts) {
         }
         case 2: {
             wstring name;
-            wcout << L"Введите имя для фильтрации: ";
+            wcout << L"Введите имя для фильтрации >> ";
             getline(wcin, name);
             
             for (Astronaut* a : astronauts) {
@@ -124,9 +125,9 @@ void FilterAstronaut(vector<Astronaut*>& astronauts) {
         }
         case 3: {
             int minAge, maxAge;
-            wcout << L"Введите минимальный возраст: ";
+            wcout << L"Введите минимальный возраст >>";
             wcin >> minAge;
-            wcout << L"Введите максимальный возраст: ";
+            wcout << L"Введите максимальный возраст >> ";
             wcin >> maxAge;
             
             for (Astronaut* a : astronauts) {
@@ -139,7 +140,7 @@ void FilterAstronaut(vector<Astronaut*>& astronauts) {
         }
         case 4: {
             wstring mission;
-            wcout << L"Введите название миссии: ";
+            wcout << L"Введите название миссии >> ";
             getline(wcin, mission);
             
             for (Astronaut* a : astronauts) {
@@ -157,7 +158,7 @@ void FilterAstronaut(vector<Astronaut*>& astronauts) {
 
 void FilterEngineer(vector<Engineer*>& engineers) {
     int filterCommand;
-    wcout << L"Фильтровать инженеров по:" << endl;
+    wcout << L"\nФильтровать инженеров по:" << endl;
     wcout << L"1 - Фамилии" << endl;
     wcout << L"2 - Имени" << endl;
     wcout << L"3 - Возрасту" << endl;
@@ -169,7 +170,7 @@ void FilterEngineer(vector<Engineer*>& engineers) {
     switch(filterCommand) {
         case 1: {
             wstring surname;
-            wcout << L"Введите фамилию для фильтрации: ";
+            wcout << L"Введите фамилию для фильтрации >> ";
             getline(wcin, surname);
             
             for (Engineer* e : engineers) {
@@ -181,7 +182,7 @@ void FilterEngineer(vector<Engineer*>& engineers) {
         }
         case 2: {
             wstring name;
-            wcout << L"Введите имя для фильтрации: ";
+            wcout << L"Введите имя для фильтрации >> ";
             getline(wcin, name);
             
             for (Engineer* e : engineers) {
@@ -193,9 +194,9 @@ void FilterEngineer(vector<Engineer*>& engineers) {
         }
         case 3: {
             int minAge, maxAge;
-            wcout << L"Введите минимальный возраст: ";
+            wcout << L"Введите минимальный возраст >> ";
             wcin >> minAge;
-            wcout << L"Введите максимальный возраст: ";
+            wcout << L"Введите максимальный возраст >> ";
             wcin >> maxAge;
             
             for (Engineer* e : engineers) {
@@ -208,7 +209,7 @@ void FilterEngineer(vector<Engineer*>& engineers) {
         }
         case 4: {
             wstring specialisation;
-            wcout << L"Введите специализацию: ";
+            wcout << L"Введите специализацию >> ";
             getline(wcin, specialisation);
             
             for (Engineer* e : engineers) {
@@ -229,22 +230,37 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
     Engineer* engineer = nullptr;
     if (role == L"admin") {
         while (true) {
-            wcout << L"1 - Вывести данные о пользователях" << endl;
+            wcout << L"\n1 - Вывести данные о пользователях" << endl;
             wcout << L"0 - Выход из программы" << endl;
             int command(-1);
-            wcout << L"Введите команду >> ";
-            wcin >> command;
+            wcout << L"/nВведите команду >> ";
+            command = GetCorrectIntValue();
+            wcin.ignore();
+            wcout << endl;
             switch(command) {
-                case 1:
-                    for (Astronaut* astronaut : astronauts) {
-                        astronaut->PrintInfo();
-                        wcout << L"\n" << endl;
+                case 1: {
+                    if (astronauts.empty()) {
+                        wcout << L"Список космонавтов пустой" << endl;
                     }
-                    for (Engineer* engineer : engineers) {
-                        engineer->PrintInfo();
-                        wcout << L"\n" << endl;
+                    else {
+                        for (Astronaut* astronaut : astronauts) {
+                            wcout << *astronaut;
+                            wcout << L"\n" << endl;
+                        }
                     }
+                    
+                    if (engineers.empty()) {
+                        wcout << L"Список инженеров пустой" << endl;
+                    }
+                    else { 
+                        for (Engineer* engineer : engineers) {
+                            wcout << *engineer;
+                            wcout << L"\n" << endl;
+                        }
+                    }
+
                     break;
+                    }
                 case 0:
                     return;
                 default:
@@ -255,19 +271,19 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
     }
     else if (role == L"user") {
         while (true) {
-            wcout << L"Меню:" << endl;
+            wcout << L"\nМеню:" << endl;
             wcout << L"1 - Добавить космонавта" << endl;
-            wcout << L"2 - Вывести данные о космонавте" << endl;
+            wcout << L"2 - Вывести данные о космонавтах" << endl;
             wcout << L"3 - Добавить инженера" << endl;
-            wcout << L"4 - Вывести данные об инженере" << endl;
+            wcout << L"4 - Вывести данные об инженерах" << endl;
             wcout << L"5 - Сортировка" << endl;
             wcout << L"6 - Фильтрация" << endl;
             wcout << L"7 - Удаление" << endl;
             wcout << L"0 - Выход" << endl;
-            wcout << endl;
             int command;
-            wcout << L"Введите команду >> ";
-            wcin >> command;
+            wcout << L"\nВведите команду >> ";
+            command = GetCorrectIntValue();
+            wcout << endl;
             wcin.ignore();
     
             switch(command) {
@@ -278,9 +294,14 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
                     break;
                 }
                 case 2: {
-                    for (Astronaut* astronaut : astronauts) {
-                        wcout << *astronaut;
-                        wcout << L"\n" << endl;
+                    if (astronauts.empty()) {
+                        wcout << L"Список космонавтов пустой" << endl;
+                    }
+                    else {
+                        for (Astronaut* astronaut : astronauts) {
+                            wcout << *astronaut;
+                            wcout << L"\n" << endl;
+                        }
                     }
                     break;
                 }
@@ -291,19 +312,25 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
                     break;
                 }
                 case 4: {
-                    for (Engineer* engineer : engineers) {
-                        wcout << *engineer;
-                        wcout << L"\n" << endl;
+                    if (engineers.empty()) {
+                        wcout << L"Список инженеров пустой" << endl;
+                    }
+                    else { 
+                        for (Engineer* engineer : engineers) {
+                            wcout << *engineer;
+                            wcout << L"\n" << endl;
+                        }
                     }
                     break;
                 }
                 case 5: {
                     int sortcommand(-1);
-                    wcout << L"Кого вы хотите сортировать?" << endl;
+                    wcout << L"\nКого вы хотите сортировать?" << endl;
                     wcout << L"1 - Космонавтов" << endl;
                     wcout << L"2 - Инженеров" << endl;
-                    wcout << L"Введите команду >> ";
-                    wcin >> sortcommand;
+                    wcout << L"\nВведите команду >> ";
+                    sortcommand = GetCorrectIntValue();
+                    wcout << endl;
                     wcin.ignore();
                     switch(sortcommand) {
                         case 1:
@@ -320,11 +347,12 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
                 }
                 case 6: {
                     int filtercommand(-1);
-                    wcout << L"Кого вы хотите фильтровать?" << endl;
+                    wcout << L"\nКого вы хотите фильтровать?" << endl;
                     wcout << L"1 - Космонавтов" << endl;
                     wcout << L"2 - Инженеров" << endl;
-                    wcout << L"Введите команду >> ";
+                    wcout << L"\nВведите команду >> ";
                     wcin >> filtercommand;
+                    wcout << endl;
                     wcin.ignore();
                     switch(filtercommand) {
                         case 1:
@@ -341,11 +369,12 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
                 }
                 case 7: {
                     int deletecommand(-1);
-                    wcout << L"Кого вы хотите удалить?" << endl;
+                    wcout << L"\nКого вы хотите удалить?" << endl;
                     wcout << L"1 - Космонавтов" << endl;
                     wcout << L"2 - Инженеров" << endl;
-                    wcout << L"Введите команду >> ";
+                    wcout << L"\nВведите команду >> ";
                     wcin >> deletecommand;
+                    wcout << endl;
                     wcin.ignore();
                     switch(deletecommand) {
                         case 1:
@@ -372,4 +401,24 @@ void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& 
             }
         }
     }
+}
+
+
+int GetCorrectIntValue()
+{
+    int n{};
+    bool isNotOk{};
+    do
+    {
+        isNotOk = false;
+        if ((wcin >> n).fail() or n < 0)
+        {
+            wcin.clear();
+            wcin.ignore(numeric_limits<streamsize>::max(), '\n');
+            wcout << L"\nНекорректный ввод, попробуйте ещё раз!" << endl;
+            wcout << L"Введите команду >> ";
+            isNotOk = true;
+        }
+    } while (isNotOk);
+    return n;
 }

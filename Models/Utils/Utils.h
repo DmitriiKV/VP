@@ -11,3 +11,4 @@ void DeleteEngineer(vector<Engineer*>& engineers);
 void FilterAstronaut(vector<Astronaut*>& astronauts);
 void FilterEngineer(vector<Engineer*>& engineers);
 void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& engineers);
+int GetCorrectIntValue();
