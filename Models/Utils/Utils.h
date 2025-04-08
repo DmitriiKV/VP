@@ -1,14 +1,14 @@
-#include "../Engineer/Engineer.h"
+#include "../Astronaut/Astronaut.h"
 #include "../Engineer/Engineer.h"
 #include "../Rocket/Rocket.h"
-#include "../Authorisation/Authorisation.h"
-#include <vector>
+#include "../MyVectorAstronaut/MyVectorAstronaut.h"
+#include "../MyVectorEngineer/MyVectorEngineer.h"
 
-void SortAstronauts(vector<Astronaut*>& astronauts);
-void SortEngineers(vector<Engineer*>& engineers);
-void DeleteAstronaut(vector<Astronaut*>& astronauts);
-void DeleteEngineer(vector<Engineer*>& engineers);
-void FilterAstronaut(vector<Astronaut*>& astronauts);
-void FilterEngineer(vector<Engineer*>& engineers);
-void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& engineers);
+void SortAstronauts(MyVectorAstronaut astronauts);
+void SortEngineers(MyVectorEngineer engineers);
+void DeleteAstronaut(MyVectorAstronaut astronauts);
+void DeleteEngineer(MyVectorEngineer engineers);
+void FilterAstronaut(MyVectorAstronaut astronauts);
+void FilterEngineer(MyVectorEngineer engineers);
+void MainMenu(wstring& role, MyVectorAstronaut astronauts, MyVectorEngineer engineers);
 int GetCorrectIntValue();

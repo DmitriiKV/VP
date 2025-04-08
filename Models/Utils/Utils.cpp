@@ -4,14 +4,18 @@
 #include "../Engineer/Engineer.h"
 #include "../User/User.h"
 #include "../Authorisation/Authorisation.h"
-#include <algorithm>
-#include <vector>
+
+#include "../MyVectorAstronaut/MyVectorAstronaut.h"
+#include "../MyVectorEngineer/MyVectorEngineer.h"
+
+#include <limits>
+#include <climits>
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-void SortAstronauts(vector<Astronaut*>& astronauts){
+void SortAstronauts(MyVectorAstronaut astronauts) {
     int sortcommand;
     wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
@@ -19,7 +23,8 @@ void SortAstronauts(vector<Astronaut*>& astronauts){
     wcout << L"\nВведите команду >> ";
     sortcommand = GetCorrectIntValue();
     wcout << endl;
-    switch(sortcommand){
+    
+    switch(sortcommand) {
         case 1: 
             sort(astronauts.begin(), astronauts.end(), [](Astronaut* a, Astronaut* b){
             return *a < *b;
@@ -29,14 +34,13 @@ void SortAstronauts(vector<Astronaut*>& astronauts){
             sort(astronauts.begin(), astronauts.end(), [](Astronaut* a, Astronaut* b){
             return *a > *b;
         });
-        break;
         default:
-        wcout << L"Неверная команда!" << endl;
-        break;
+            wcout << L"Неверная команда!" << endl;
+            break;
     }
 }
 
-void SortEngineers(vector<Engineer*>& engineers){
+void SortEngineers(MyVectorEngineer engineers){
     int sortcommand;
     wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
@@ -60,7 +64,7 @@ void SortEngineers(vector<Engineer*>& engineers){
     }
 }
 
-void DeleteAstronaut(vector<Astronaut*>& astronauts){
+void DeleteAstronaut(MyVectorAstronaut astronauts){
     int index;
     
     for (int i = 0; i < astronauts.size(); i++){
@@ -72,7 +76,7 @@ void DeleteAstronaut(vector<Astronaut*>& astronauts){
     delete astronauts[index - 1];
 }
 
-void DeleteEngineer(vector<Engineer*>& engineers){
+void DeleteEngineer(MyVectorEngineer engineers){
     int index;
     
     for (int i = 0; i < engineers.size(); i++){
@@ -86,7 +90,7 @@ void DeleteEngineer(vector<Engineer*>& engineers){
     delete engineers[index - 1];
 }
 
-void FilterAstronaut(vector<Astronaut*>& astronauts) {
+void FilterAstronaut(MyVectorAstronaut astronauts) {
     int filterCommand;
     wcout << L"\nФильтровать космонавтов по:" << endl;
     wcout << L"1 - Фамилии" << endl;
@@ -156,7 +160,7 @@ void FilterAstronaut(vector<Astronaut*>& astronauts) {
     }
 }
 
-void FilterEngineer(vector<Engineer*>& engineers) {
+void FilterEngineer(MyVectorEngineer engineers) {
     int filterCommand;
     wcout << L"\nФильтровать инженеров по:" << endl;
     wcout << L"1 - Фамилии" << endl;
@@ -225,7 +229,7 @@ void FilterEngineer(vector<Engineer*>& engineers) {
     }
 }
 
-void MainMenu(wstring& role, vector<Astronaut*>& astronauts, vector<Engineer*>& engineers) {
+void MainMenu(wstring& role, MyVectorAstronaut astronauts, MyVectorEngineer engineers) {
     Astronaut* astronaut = nullptr;
     Engineer* engineer = nullptr;
     if (role == L"admin") {

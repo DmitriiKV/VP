@@ -2,17 +2,20 @@
 #define AUTHORISATION_H
 
 #include "../User/User.h"
-#include "../Astronaut/Astronaut.h"
-#include "../Engineer/Engineer.h"
-#include <vector>
-#include <fstream>
+
+#include "../MyVectorAstronaut/MyVectorAstronaut.h"
+#include "../MyVectorEngineer/MyVectorEngineer.h"
+
+class MyVectorEngineer;
+class MyVectorAstronaut;
 
 class Authorisation{
     public:
         wstring SignIn();
         wstring SignUp();
-        void ExportToFile(vector<Astronaut*>& astronaut, vector<Engineer*>& engineer);
+        void ExportToFile(MyVectorAstronaut astronaut, MyVectorEngineer engineer);
         wstring AuthorisationMenu();
+        Authorisation() = default;
 };
 
 #endif

@@ -1,5 +1,8 @@
 #include "Authorisation.h"
 #include "../Utils/Utils.h"
+#include "../MyVectorAstronaut/MyVectorAstronaut.h"
+#include "../MyVectorEngineer/MyVectorEngineer.h"
+
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -61,7 +64,7 @@ wstring Authorisation::SignUp(){
     return L"";
 }
 
-void Authorisation::ExportToFile(vector<Astronaut*>& astronauts, vector<Engineer*>& engineers){
+void Authorisation::ExportToFile(MyVectorAstronaut astronauts, MyVectorEngineer engineers){
     wofstream file("user.txt", ios::app);
     if (!file.is_open()){
         wcout << L"Ошибка открытия файла!" << endl;
