@@ -12,6 +12,8 @@ class Astronaut : public User {
     friend wistream& operator>>(wistream& ain, Astronaut& astronaut);
     
     public:
+    Astronaut() = default;
+    Astronaut(const wstring& surname, const wstring& name, int age, const wstring& mission);
     void setMission();
     wstring getMission() const;
     void PrintInfo() override; 

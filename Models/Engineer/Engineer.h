@@ -12,6 +12,8 @@ class Engineer : public User {
     friend wistream& operator>>(wistream& ein, Engineer& engineer);
     
     public:
+    Engineer() = default;
+    Engineer(const wstring& surname, const wstring& name, int age, const wstring& specialisation);
     void setSpecialisation();
     wstring getSpecialisation() const;
     void PrintInfo() override;

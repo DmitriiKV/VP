@@ -1,8 +1,16 @@
 #include "Engineer.h"
 #include "../User/User.h"
+#include "../Utils/Utils.h"
 #include <iostream>
 
 using namespace std;
+
+Engineer::Engineer(const wstring& surname, const wstring& name, int age, const wstring& specialisation) {
+    this->m_surname = surname;
+    this->m_name = name;
+    this->m_age = age;
+    this->m_specialisation = specialisation;
+}
 
 void Engineer::setSpecialisation(){
     wcout << L"Введите специализацию: ";
@@ -29,14 +37,14 @@ wistream& operator>>(wistream& ein, Engineer& engineer){
     wstring surname, name, specialisation;
     int age;
     wcout << L"Введите фамилию: ";
-    getline(ein, surname);
+    surname = GetCorrectWstringLineValue();
     wcout << L"Введите имя: ";
-    getline(ein, name);
+    name = GetCorrectWstringLineValue();
     wcout << L"Введите возраст: ";
     ein >> age;
     ein.ignore();
     wcout << L"Введите специализацию: ";
-    getline(ein, specialisation);
+    specialisation = GetCorrectWstringLineValue();
 
     engineer.m_surname = surname;
     engineer.m_name = name;

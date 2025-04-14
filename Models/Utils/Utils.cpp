@@ -15,82 +15,92 @@
 
 using namespace std;
 
-void SortAstronauts(MyVectorAstronaut astronauts) {
+void SortAstronauts(MyVectorAstronaut& astronauts) {
     int sortcommand;
     wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
     wcout << L"2 - По убыванию" << endl;
     wcout << L"\nВведите команду >> ";
     sortcommand = GetCorrectIntValue();
-    wcout << endl;
     
     switch(sortcommand) {
         case 1: 
-            sort(astronauts.begin(), astronauts.end(), [](Astronaut* a, Astronaut* b){
-            return *a < *b;
-        });
-        break;
+            astronauts.sort(true);
+            break;
         case 2: 
-            sort(astronauts.begin(), astronauts.end(), [](Astronaut* a, Astronaut* b){
-            return *a > *b;
-        });
+            astronauts.sort(false);
+            break;
         default:
             wcout << L"Неверная команда!" << endl;
             break;
     }
 }
 
-void SortEngineers(MyVectorEngineer engineers){
+void SortEngineers(MyVectorEngineer& engineers) {
     int sortcommand;
     wcout << L"\nСортировать:" << endl;
     wcout << L"1 - По возрастанию" << endl;
     wcout << L"2 - По убыванию" << endl;
     wcout << L"\nВведите команду >> ";
     sortcommand = GetCorrectIntValue();
-    switch(sortcommand){
+    
+    switch(sortcommand) {
         case 1: 
-            sort(engineers.begin(), engineers.end(), [](Engineer* a, Engineer* b){
-            return *a < *b;
-        });
-        break;
+            engineers.sort(true);
+            break;
         case 2: 
-            sort(engineers.begin(), engineers.end(), [](Engineer* a, Engineer* b){
-            return *a > *b;
-        });
-        break;
+            engineers.sort(false);
+            break;
         default:
-        wcout << L"Неверная команда!" << endl;
-        break;
+            wcout << L"Неверная команда!" << endl;
+            break;
     }
 }
+void DeleteAstronaut(MyVectorAstronaut& astronauts) {
+    if (astronauts.empty()) {
+        wcout << L"Список космонавтов пуст!" << endl;
+        return;
+    }
 
-void DeleteAstronaut(MyVectorAstronaut astronauts){
-    int index;
-    
-    for (int i = 0; i < astronauts.size(); i++){
+    for (size_t i = 0; i < astronauts.size(); i++) {
         wcout << i + 1 << L" ";
         astronauts[i]->PrintInfo();
     }
+    
     wcout << L"\nВведите номер удаляемой записи >> ";
-    index = GetCorrectIntValue();
-    delete astronauts[index - 1];
+    int index = GetCorrectIntValue();
+    
+    if (index < 1 || index > static_cast<int>(astronauts.size())) {
+        wcout << L"Неверный индекс!" << endl;
+        return;
+    }
+    
+    astronauts.erase(index - 1);
 }
 
-void DeleteEngineer(MyVectorEngineer engineers){
-    int index;
-    
-    for (int i = 0; i < engineers.size(); i++){
+void DeleteEngineer(MyVectorEngineer& engineers) {
+    if (engineers.empty()) {
+        wcout << L"Список инженеров пуст!" << endl;
+        return;
+    }
+
+    for (size_t i = 0; i < engineers.size(); i++) {
         wcout << i + 1 << L" ";
         engineers[i]->PrintInfo();
     }
 
     wcout << L"Введите номер удаляемой записи >> ";
-    index = GetCorrectIntValue();
+    int index = GetCorrectIntValue();
 
-    delete engineers[index - 1];
+    if (index < 1 || index > static_cast<int>(engineers.size())) {
+        wcout << L"Неверный индекс!" << endl;
+        return;
+    }
+
+    engineers.erase(index - 1);
 }
 
-void FilterAstronaut(MyVectorAstronaut astronauts) {
+void FilterAstronaut(MyVectorAstronaut& astronauts) {
     int filterCommand;
     wcout << L"\nФильтровать космонавтов по:" << endl;
     wcout << L"1 - Фамилии" << endl;
@@ -160,7 +170,7 @@ void FilterAstronaut(MyVectorAstronaut astronauts) {
     }
 }
 
-void FilterEngineer(MyVectorEngineer engineers) {
+void FilterEngineer(MyVectorEngineer& engineers) {
     int filterCommand;
     wcout << L"\nФильтровать инженеров по:" << endl;
     wcout << L"1 - Фамилии" << endl;
@@ -229,7 +239,7 @@ void FilterEngineer(MyVectorEngineer engineers) {
     }
 }
 
-void MainMenu(wstring& role, MyVectorAstronaut astronauts, MyVectorEngineer engineers) {
+void MainMenu(wstring& role, MyVectorAstronaut& astronauts, MyVectorEngineer& engineers) {
     Astronaut* astronaut = nullptr;
     Engineer* engineer = nullptr;
     if (role == L"admin") {
@@ -237,7 +247,7 @@ void MainMenu(wstring& role, MyVectorAstronaut astronauts, MyVectorEngineer engi
             wcout << L"\n1 - Вывести данные о пользователях" << endl;
             wcout << L"0 - Выход из программы" << endl;
             int command(-1);
-            wcout << L"/nВведите команду >> ";
+            wcout << L"\nВведите команду >> ";
             command = GetCorrectIntValue();
             wcin.ignore();
             wcout << endl;
@@ -395,7 +405,7 @@ void MainMenu(wstring& role, MyVectorAstronaut astronauts, MyVectorEngineer engi
                 }
                 case 0: {
                     Authorisation authorisation;
-                    authorisation.ExportToFile(astronauts, engineers);
+                    authorisation.ExportDataToFile(astronauts, engineers);
                     return;
                 }
                 default: {
@@ -420,9 +430,29 @@ int GetCorrectIntValue()
             wcin.clear();
             wcin.ignore(numeric_limits<streamsize>::max(), '\n');
             wcout << L"\nНекорректный ввод, попробуйте ещё раз!" << endl;
-            wcout << L"Введите команду >> ";
+            wcout << L"Попробуйте ещё раз >> ";
             isNotOk = true;
         }
     } while (isNotOk);
     return n;
+}
+
+
+wstring GetCorrectWstringLineValue()
+{
+    wstring value;
+    bool isNotOk{};
+    do
+    {
+        isNotOk = false;
+        if (!getline(wcin, value) || value.empty())
+        {
+            wcin.clear();
+            wcin.ignore(numeric_limits<streamsize>::max(), '\n');
+            wcout << L"\nОшибка: ввод не может быть пустым!" << endl;
+            wcout << L"Попробуйте ещё раз >> ";
+            isNotOk = true;
+        }
+    } while (isNotOk);
+    return value;
 }

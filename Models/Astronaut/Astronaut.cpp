@@ -1,8 +1,16 @@
 #include "Astronaut.h"
 #include "../User/User.h"
+#include "../Utils/Utils.h"
 #include <iostream>
 
 using namespace std;
+
+Astronaut::Astronaut(const wstring& surname, const wstring& name, int age, const wstring& mission) {
+    this->m_surname = surname;
+    this->m_name = name;
+    this->m_age = age;
+    this->m_mission = mission;
+}
 
 void Astronaut::setMission(){
     wcout << L"Введите миссию: ";
@@ -29,11 +37,11 @@ wistream& operator>>(wistream& ain, Astronaut& astronaut){
     wstring surname, name, mission;
     int age;
     wcout << L"Введите фамилию: ";
-    getline(ain, surname);
+    surname = GetCorrectWstringLineValue();
     wcout << L"Введите имя: ";
-    getline(ain, name);
+    name = GetCorrectWstringLineValue();
     wcout << L"Введите возраст: ";
-    ain >> age;
+    age = GetCorrectIntValue();
     ain.ignore();
     wcout << L"Введите миссию: ";
     getline(ain, mission);

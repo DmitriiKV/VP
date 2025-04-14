@@ -1,21 +1,18 @@
-#ifndef AUTHORISATION_H
-#define AUTHORISATION_H
-
-#include "../User/User.h"
-
+#pragma once
 #include "../MyVectorAstronaut/MyVectorAstronaut.h"
 #include "../MyVectorEngineer/MyVectorEngineer.h"
+#include <fstream>
 
-class MyVectorEngineer;
-class MyVectorAstronaut;
-
-class Authorisation{
-    public:
-        wstring SignIn();
-        wstring SignUp();
-        void ExportToFile(MyVectorAstronaut astronaut, MyVectorEngineer engineer);
-        wstring AuthorisationMenu();
-        Authorisation() = default;
+class Authorisation {
+public:
+    wstring AuthorisationMenu();
+    wstring SignIn();
+    wstring SignUp();
+    void ExportUsersToFile();
+    void ImportUsersFromFile();
+    void ExportDataToFile(const MyVectorAstronaut& astronauts, const MyVectorEngineer& engineers);
+    void ImportDataFromFile(MyVectorAstronaut& astronauts, MyVectorEngineer& engineers);
+private:
+    const wstring USER_FILE = L"users.txt";
+    const wstring DATA_FILE = L"data.txt";
 };
-
-#endif

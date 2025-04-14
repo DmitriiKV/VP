@@ -20,6 +20,7 @@ int main() {
     MyVectorAstronaut astronauts;
     MyVectorEngineer engineers;
     Authorisation authorisation;
+    authorisation.ImportDataFromFile(astronauts, engineers);
     wstring role = authorisation.AuthorisationMenu();
     if (!role.empty()) {
         MainMenu(role, astronauts, engineers);
