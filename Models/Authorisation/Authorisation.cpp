@@ -1,4 +1,4 @@
-#include "Authorisation.h"
+#include "../Authorisation/Authorisation.h"
 #include "../Utils/Utils.h"
 #include "../MyVectorAstronaut/MyVectorAstronaut.h"
 #include "../MyVectorEngineer/MyVectorEngineer.h"
@@ -64,53 +64,76 @@ wstring Authorisation::SignUp(){
     return L"";
 }
 
-void Authorisation::ExportDataToFile(const MyVectorAstronaut& astronauts, const MyVectorEngineer& engineers) {
-    wofstream file(DATA_FILE.c_str());  // Используем c_str() для конвертации wstring
-    if (!file.is_open()) {
-        wcout << L"Ошибка открытия файла данных!" << endl;
-        return;
-    }
+// void Authorisation::ExportDataToFile(
+//     const MyVectorAstronaut& astronauts,
+//     const MyVectorEngineer& engineers,
+//     const std::wstring& filePath
+// ) {
+//     std::string narrowPath(filePath.begin(), filePath.end());
+//     std::ofstream file(narrowPath.c_str());
     
-    // Сохраняем космонавтов
-    for (size_t i = 0; i < astronauts.size(); ++i) {
-        const Astronaut* a = astronauts[i];  // Заметь: const!
-        file << L"Astronaut " << a->getSurname() << L" " 
-             << a->getName() << L" " << a->getAge() << L" "
-             << a->getMission() << L"\n";
-    }
+//     if (!file.is_open()) {
+//         std::cerr << "Ошибка открытия файла данных!" << std::endl;
+//         return;
+//     }
+//     for (size_t i = 0; i < astronauts.size(); ++i) {
+//         const Astronaut* a = astronauts[i];
+//         file << "Astronaut " << convertWstringToUtf8(a->getSurname()) << " "
+//              << convertWstringToUtf8(a->getName()) << " " << a->getAge() << " "
+//              << convertWstringToUtf8(a->getMission()) << "\n";
+//     }
     
-    // Сохраняем инженеров
-    for (size_t i = 0; i < engineers.size(); ++i) {
-        const Engineer* e = engineers[i];  // Заметь: const!
-        file << L"Engineer " << e->getSurname() << L" " 
-             << e->getName() << L" " << e->getAge() << L" "
-             << e->getSpecialisation() << L"\n";
-    }
+//     for (size_t i = 0; i < engineers.size(); ++i) {
+//         const Engineer* e = engineers[i];
+//         file << "Engineer " << convertWstringToUtf8(e->getSurname()) << " "
+//              << convertWstringToUtf8(e->getName()) << " " << e->getAge() << " "
+//              << convertWstringToUtf8(e->getSpecialisation()) << "\n";
+//     }
     
-    file.close();
-}
+//     file.close();
+// }
 
-void Authorisation::ImportDataFromFile(MyVectorAstronaut& astronauts, MyVectorEngineer& engineers) {
-    wifstream file(DATA_FILE.c_str());  // Используем c_str()
-    if (!file.is_open()) return;
+// void Authorisation::ImportDataFromFile(
+//     MyVectorAstronaut& astronauts,
+//     MyVectorEngineer& engineers,
+//     const std::wstring& filePath
+// ) {
+//     std::string narrowPath(filePath.begin(), filePath.end());
+//     std::ifstream file(narrowPath.c_str());
+    
+//     if (!file.is_open()) {
+//         std::cerr << "Файл данных не найден!" << std::endl;
+//         return;
+//     }
 
-    wstring type;
-    while (file >> type) {
-        if (type == L"Astronaut") {
-            wstring surname, name, mission;
-            int age;
-            file >> surname >> name >> age >> mission;
-            astronauts.push_back(new Astronaut(surname, name, age, mission));
-        } 
-        else if (type == L"Engineer") {
-            wstring surname, name, specialisation;
-            int age;
-            file >> surname >> name >> age >> specialisation;
-            engineers.push_back(new Engineer(surname, name, age, specialisation));
-        }
-    }
-    file.close();
-}
+//     std::string type;
+//     while (file >> type) {
+//         if (type == "Astronaut") {
+//             std::string surname, name, mission;
+//             int age;
+//             file >> surname >> name >> age >> mission;
+//             astronauts.push_back(new Astronaut(
+//                 convertUtf8ToWstring(surname),
+//                 convertUtf8ToWstring(name),
+//                 age,
+//                 convertUtf8ToWstring(mission)
+//             ));
+//         } 
+//         else if (type == "Engineer") {
+//             std::string surname, name, specialisation;
+//             int age;
+//             file >> surname >> name >> age >> specialisation;
+//             engineers.push_back(new Engineer(
+//                 convertUtf8ToWstring(surname),
+//                 convertUtf8ToWstring(name),
+//                 age,
+//                 convertUtf8ToWstring(specialisation)
+//             ));
+//         }
+//     }
+    
+//     file.close();
+// }
 
 
 wstring Authorisation::AuthorisationMenu(){
@@ -130,7 +153,8 @@ wstring Authorisation::AuthorisationMenu(){
             case 1: {
                 wstring role = Authorisation::SignIn();
                 if (!role.empty()){
-                    ImportDataFromFile(astronauts, engineers);
+                    ImportDataAstronautsFromFile(astronauts);
+                    ImportDataEngineersFromFile(engineers);
                 return role;
                 }
                 break;

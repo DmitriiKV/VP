@@ -12,6 +12,8 @@
 #include <climits>
 #include <iostream>
 #include <algorithm>
+#include <locale>
+#include <codecvt>
 
 using namespace std;
 
@@ -404,8 +406,8 @@ void MainMenu(wstring& role, MyVectorAstronaut& astronauts, MyVectorEngineer& en
                     break;
                 }
                 case 0: {
-                    Authorisation authorisation;
-                    authorisation.ExportDataToFile(astronauts, engineers);
+                    ExportDataAstronautsToFile(astronauts);
+                    ExportDataEngineersToFile(engineers);
                     return;
                 }
                 default: {
@@ -455,4 +457,94 @@ wstring GetCorrectWstringLineValue()
         }
     } while (isNotOk);
     return value;
+}
+
+string convertWstringToUtf8(const wstring& wstr) {
+    wstring_convert<codecvt_utf8<wchar_t>> converter;
+    return converter.to_bytes(wstr);
+}
+
+
+wstring convertUtf8ToWstring(const string& str) {
+    wstring_convert<codecvt_utf8<wchar_t>> converter;
+    return converter.from_bytes(str);
+}
+
+
+void ExportDataAstronautsToFile(const MyVectorAstronaut& astronauts) {
+    wofstream file("astronauts.txt", ios::app);
+    if (!file) {
+        wcerr << L"Ошибка открытия файла для космонавтов!" << endl;
+        return;
+    }
+
+    for (size_t i = 0; i < astronauts.size(); ++i) {
+        file << L"Astronaut ";
+        file << astronauts[i]->getSurname() << L" ";
+        file << astronauts[i]->getName() << L" ";
+        file << astronauts[i]->getAge() << L" ";
+        file << astronauts[i]->getMission() << L"\n";
+    }
+}
+
+void ExportDataEngineersToFile(const MyVectorEngineer& engineers) {
+    wofstream file("engineers.txt", ios::app);
+    if (!file) {
+        wcerr << L"Ошибка открытия файла для инженеров!" << endl;
+        return;
+    }
+
+    for (size_t i = 0; i < engineers.size(); ++i) {
+        file << L"Engineer ";
+        file << engineers[i]->getSurname() << L" ";
+        file << engineers[i]->getName() << L" ";
+        file << engineers[i]->getAge() << L" ";
+        file << engineers[i]->getSpecialisation() << L"\n";
+    }
+}
+
+void ImportDataAstronautsFromFile(MyVectorAstronaut& astronauts) {
+    wifstream file("astronauts.txt");
+    if (!file) {
+        wcerr << L"Файл с космонавтами не найден!" << endl;
+        return;
+    }
+
+    wstring type;
+    while (file >> type) {
+        if (type == L"Astronaut") {
+            wstring surname, name, mission;
+            int age;
+            file >> surname >> name >> age;
+            file.ignore(); // Пропускаем пробел перед миссией
+            getline(file, mission);
+            astronauts.push_back(new Astronaut(surname, name, age, mission));
+        }
+        else {
+            file.ignore(1000, L'\n');
+        }
+    }
+}
+
+void ImportDataEngineersFromFile(MyVectorEngineer& engineers) {
+    wifstream file("engineers.txt");
+    if (!file) {
+        wcerr << L"Файл с инженерами не найден!" << endl;
+        return;
+    }
+
+    wstring type;
+    while (file >> type) {
+        if (type == L"Engineer") {
+            wstring surname, name, specialisation;
+            int age;
+            file >> surname >> name >> age;
+            file.ignore();
+            getline(file, specialisation);
+            engineers.push_back(new Engineer(surname, name, age, specialisation));
+        }
+        else {
+            file.ignore(1000, L'\n');
+        }
+    }
 }

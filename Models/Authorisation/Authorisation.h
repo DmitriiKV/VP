@@ -10,8 +10,16 @@ public:
     wstring SignUp();
     void ExportUsersToFile();
     void ImportUsersFromFile();
-    void ExportDataToFile(const MyVectorAstronaut& astronauts, const MyVectorEngineer& engineers);
-    void ImportDataFromFile(MyVectorAstronaut& astronauts, MyVectorEngineer& engineers);
+//     void ExportDataToFile(
+//     const MyVectorAstronaut& astronauts,
+//     const MyVectorEngineer& engineers,
+//     const std::wstring& filePath
+// );
+//     void ImportDataFromFile(
+//     MyVectorAstronaut& astronauts,
+//     MyVectorEngineer& engineers,
+//     const std::wstring& filePath
+// );
 private:
     const wstring USER_FILE = L"users.txt";
     const wstring DATA_FILE = L"data.txt";

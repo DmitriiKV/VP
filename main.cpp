@@ -15,18 +15,18 @@
 using namespace std;
 
 int main() {
-    // setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
-    setlocale(LC_ALL, "Russian");  // Для Windows
+    setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
+    // setlocale(LC_ALL, "Russian");  // Для Windows
     MyVectorAstronaut astronauts;
     MyVectorEngineer engineers;
     Authorisation authorisation;
-    authorisation.ImportDataFromFile(astronauts, engineers);
+    ImportDataAstronautsFromFile(astronauts);
+    ImportDataEngineersFromFile(engineers);
     wstring role = authorisation.AuthorisationMenu();
     if (!role.empty()) {
         MainMenu(role, astronauts, engineers);
     }
     
-    // Очистка памяти
     for (size_t i = 0; i < astronauts.size(); ++i) {
         delete astronauts[i];
     }

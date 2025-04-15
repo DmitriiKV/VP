@@ -109,6 +109,8 @@
     "variant": "cpp",
     "locale": "cpp",
     "fstream": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "codecvt": "cpp",
+    "ranges": "cpp"
   }
 }
