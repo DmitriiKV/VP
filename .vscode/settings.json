@@ -111,6 +111,7 @@
     "fstream": "cpp",
     "sstream": "cpp",
     "codecvt": "cpp",
-    "ranges": "cpp"
+    "ranges": "cpp",
+    "cstring": "cpp"
   }
 }

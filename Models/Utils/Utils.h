@@ -1,21 +1,15 @@
 #include "../Astronaut/Astronaut.h"
 #include "../Engineer/Engineer.h"
 #include "../Rocket/Rocket.h"
-#include "../MyVectorAstronaut/MyVectorAstronaut.h"
-#include "../MyVectorEngineer/MyVectorEngineer.h"
+#include "../MyVector/MyVector.h"
 
-void SortAstronauts(MyVectorAstronaut& astronauts);
-void SortEngineers(MyVectorEngineer& engineers);
-void DeleteAstronaut(MyVectorAstronaut& astronauts);
-void DeleteEngineer(MyVectorEngineer& engineers);
-void FilterAstronaut(MyVectorAstronaut& astronauts);
-void FilterEngineer(MyVectorEngineer& engineers);
-void MainMenu(wstring& role, MyVectorAstronaut&astronauts, MyVectorEngineer& engineers);
+void SortUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
+void DeleteUser(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
+void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
+void ExportData(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
+void ImportData(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
+void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers);
 int GetCorrectIntValue();
 wstring GetCorrectWstringLineValue();
 string convertWstringToUtf8(const wstring& wstr);
 wstring convertUtf8ToWstring(const string& str);
-void ExportDataAstronautsToFile(const MyVectorAstronaut& astronauts);
-void ExportDataEngineersToFile(const MyVectorEngineer& engineers);
-void ImportDataAstronautsFromFile(MyVectorAstronaut& astronauts);
-void ImportDataEngineersFromFile(MyVectorEngineer& engineers);

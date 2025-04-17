@@ -1,7 +1,6 @@
 #include "../Authorisation/Authorisation.h"
 #include "../Utils/Utils.h"
-#include "../MyVectorAstronaut/MyVectorAstronaut.h"
-#include "../MyVectorEngineer/MyVectorEngineer.h"
+#include "../MyVector/MyVector.h"
 
 #include <fstream>
 #include <iostream>
@@ -64,81 +63,9 @@ wstring Authorisation::SignUp(){
     return L"";
 }
 
-// void Authorisation::ExportDataToFile(
-//     const MyVectorAstronaut& astronauts,
-//     const MyVectorEngineer& engineers,
-//     const std::wstring& filePath
-// ) {
-//     std::string narrowPath(filePath.begin(), filePath.end());
-//     std::ofstream file(narrowPath.c_str());
-    
-//     if (!file.is_open()) {
-//         std::cerr << "Ошибка открытия файла данных!" << std::endl;
-//         return;
-//     }
-//     for (size_t i = 0; i < astronauts.size(); ++i) {
-//         const Astronaut* a = astronauts[i];
-//         file << "Astronaut " << convertWstringToUtf8(a->getSurname()) << " "
-//              << convertWstringToUtf8(a->getName()) << " " << a->getAge() << " "
-//              << convertWstringToUtf8(a->getMission()) << "\n";
-//     }
-    
-//     for (size_t i = 0; i < engineers.size(); ++i) {
-//         const Engineer* e = engineers[i];
-//         file << "Engineer " << convertWstringToUtf8(e->getSurname()) << " "
-//              << convertWstringToUtf8(e->getName()) << " " << e->getAge() << " "
-//              << convertWstringToUtf8(e->getSpecialisation()) << "\n";
-//     }
-    
-//     file.close();
-// }
-
-// void Authorisation::ImportDataFromFile(
-//     MyVectorAstronaut& astronauts,
-//     MyVectorEngineer& engineers,
-//     const std::wstring& filePath
-// ) {
-//     std::string narrowPath(filePath.begin(), filePath.end());
-//     std::ifstream file(narrowPath.c_str());
-    
-//     if (!file.is_open()) {
-//         std::cerr << "Файл данных не найден!" << std::endl;
-//         return;
-//     }
-
-//     std::string type;
-//     while (file >> type) {
-//         if (type == "Astronaut") {
-//             std::string surname, name, mission;
-//             int age;
-//             file >> surname >> name >> age >> mission;
-//             astronauts.push_back(new Astronaut(
-//                 convertUtf8ToWstring(surname),
-//                 convertUtf8ToWstring(name),
-//                 age,
-//                 convertUtf8ToWstring(mission)
-//             ));
-//         } 
-//         else if (type == "Engineer") {
-//             std::string surname, name, specialisation;
-//             int age;
-//             file >> surname >> name >> age >> specialisation;
-//             engineers.push_back(new Engineer(
-//                 convertUtf8ToWstring(surname),
-//                 convertUtf8ToWstring(name),
-//                 age,
-//                 convertUtf8ToWstring(specialisation)
-//             ));
-//         }
-//     }
-    
-//     file.close();
-// }
-
-
 wstring Authorisation::AuthorisationMenu(){
-    MyVectorAstronaut astronauts;
-    MyVectorEngineer engineers;
+    MyVector<Astronaut> astronauts;
+    MyVector<Engineer> engineers;
     while (true){
         wcout << L"1 - Войти" << endl;
         wcout << L"2 - Зарегистрироваться" << endl;
@@ -153,8 +80,7 @@ wstring Authorisation::AuthorisationMenu(){
             case 1: {
                 wstring role = Authorisation::SignIn();
                 if (!role.empty()){
-                    ImportDataAstronautsFromFile(astronauts);
-                    ImportDataEngineersFromFile(engineers);
+                    ImportData(astronauts, engineers);
                 return role;
                 }
                 break;

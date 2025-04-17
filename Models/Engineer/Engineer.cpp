@@ -1,18 +1,15 @@
 #include "Engineer.h"
-#include "../User/User.h"
 #include "../Utils/Utils.h"
-#include <iostream>
 
-using namespace std;
-
-Engineer::Engineer(const wstring& surname, const wstring& name, int age, const wstring& specialisation) {
+Engineer::Engineer(const wstring& surname, const wstring& name, 
+                  int age, const wstring& specialisation) {
     this->m_surname = surname;
     this->m_name = name;
     this->m_age = age;
     this->m_specialisation = specialisation;
 }
 
-void Engineer::setSpecialisation(){
+void Engineer::setSpecialisation() {
     wcout << L"Введите специализацию: ";
     getline(wcin, m_specialisation);
 }
@@ -26,38 +23,38 @@ void Engineer::PrintInfo() {
     wcout << L"Специализация: " << m_specialisation << endl;
 }
 
-wostream& operator<<(wostream& eout, const Engineer& engineer) {
-    eout << L"Инженер: " << engineer.getSurname() << L" " << engineer.getName() << endl;
-    eout << L"Возраст: " << engineer.getAge() << endl;
-    eout << L"Специализация: " << engineer.getSpecialisation() << endl;
-    return eout;
+bool Engineer::operator<(const User& other) const {
+    return m_surname < other.getSurname();
 }
 
-wistream& operator>>(wistream& ein, Engineer& engineer){
-    wstring surname, name, specialisation;
-    int age;
+bool Engineer::operator>(const User& other) const {
+    return m_surname > other.getSurname();
+}
+
+wostream& Engineer::print(wostream& os) const {
+    os << L"Инженер: " << getSurname() << L" " << getName() << endl;
+    os << L"Возраст: " << getAge() << endl;
+    os << L"Специализация: " << getSpecialisation() << endl;
+    return os;
+}
+
+wistream& Engineer::read(wistream& is) {
     wcout << L"Введите фамилию: ";
-    surname = GetCorrectWstringLineValue();
+    m_surname = GetCorrectWstringLineValue();
     wcout << L"Введите имя: ";
-    name = GetCorrectWstringLineValue();
+    m_name = GetCorrectWstringLineValue();
     wcout << L"Введите возраст: ";
-    ein >> age;
-    ein.ignore();
+    m_age = GetCorrectIntValue();
+    is.ignore();
     wcout << L"Введите специализацию: ";
-    specialisation = GetCorrectWstringLineValue();
-
-    engineer.m_surname = surname;
-    engineer.m_name = name;
-    engineer.m_age = age;
-    engineer.m_specialisation = specialisation;
-
-    return ein;
+    m_specialisation = GetCorrectWstringLineValue();
+    return is;
 }
 
-bool Engineer::operator<(const Engineer& other) const{
-    return m_surname < other.m_surname;
+wostream& operator<<(wostream& eout, const Engineer& engineer) {
+    return engineer.print(eout);
 }
 
-bool Engineer::operator>(const Engineer& other) const{
-    return m_surname > other.m_surname;
+wistream& operator>>(wistream& ein, Engineer& engineer) {
+    return engineer.read(ein);
 }

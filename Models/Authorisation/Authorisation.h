@@ -1,26 +1,21 @@
-#pragma once
-#include "../MyVectorAstronaut/MyVectorAstronaut.h"
-#include "../MyVectorEngineer/MyVectorEngineer.h"
+#ifndef AUTHORISATION_H
+#define AUTHORISATION_H
+
+#include "../MyVector/MyVector.h"
 #include <fstream>
+#include <string>
+
+using namespace std;
 
 class Authorisation {
 public:
     wstring AuthorisationMenu();
     wstring SignIn();
     wstring SignUp();
-    void ExportUsersToFile();
-    void ImportUsersFromFile();
-//     void ExportDataToFile(
-//     const MyVectorAstronaut& astronauts,
-//     const MyVectorEngineer& engineers,
-//     const std::wstring& filePath
-// );
-//     void ImportDataFromFile(
-//     MyVectorAstronaut& astronauts,
-//     MyVectorEngineer& engineers,
-//     const std::wstring& filePath
-// );
+
 private:
     const wstring USER_FILE = L"users.txt";
     const wstring DATA_FILE = L"data.txt";
 };
+
+#endif

@@ -1,18 +1,15 @@
 #include "Astronaut.h"
-#include "../User/User.h"
 #include "../Utils/Utils.h"
-#include <iostream>
 
-using namespace std;
-
-Astronaut::Astronaut(const wstring& surname, const wstring& name, int age, const wstring& mission) {
+Astronaut::Astronaut(const wstring& surname, const wstring& name, 
+                     int age, const wstring& mission) {
     this->m_surname = surname;
     this->m_name = name;
     this->m_age = age;
     this->m_mission = mission;
 }
 
-void Astronaut::setMission(){
+void Astronaut::setMission() {
     wcout << L"Введите миссию: ";
     getline(wcin, m_mission);
 }
@@ -26,38 +23,38 @@ void Astronaut::PrintInfo() {
     wcout << L"Миссия: " << m_mission << endl;
 }
 
-wostream& operator<<(wostream& aout, const Astronaut& astronaut) {
-    aout << L"Космонавт: " << astronaut.getSurname() << L" " << astronaut.getName() << endl;
-    aout << L"Возраст: " << astronaut.getAge() << endl;
-    aout << L"Миссия: " << astronaut.getMission() << endl;
-    return aout;
+bool Astronaut::operator<(const User& other) const {
+    return m_surname < other.getSurname();
 }
 
-wistream& operator>>(wistream& ain, Astronaut& astronaut){
-    wstring surname, name, mission;
-    int age;
+bool Astronaut::operator>(const User& other) const {
+    return m_surname > other.getSurname();
+}
+
+wostream& Astronaut::print(wostream& os) const {
+    os << L"Космонавт: " << getSurname() << L" " << getName() << endl;
+    os << L"Возраст: " << getAge() << endl;
+    os << L"Миссия: " << getMission() << endl;
+    return os;
+}
+
+wistream& Astronaut::read(wistream& is) {
     wcout << L"Введите фамилию: ";
-    surname = GetCorrectWstringLineValue();
+    m_surname = GetCorrectWstringLineValue();
     wcout << L"Введите имя: ";
-    name = GetCorrectWstringLineValue();
+    m_name = GetCorrectWstringLineValue();
     wcout << L"Введите возраст: ";
-    age = GetCorrectIntValue();
-    ain.ignore();
+    m_age = GetCorrectIntValue();
+    is.ignore();
     wcout << L"Введите миссию: ";
-    getline(ain, mission);
-
-    astronaut.m_surname = surname;
-    astronaut.m_name = name;
-    astronaut.m_age = age;
-    astronaut.m_mission = mission;
-
-    return ain;
+    getline(is, m_mission);
+    return is;
 }
 
-bool Astronaut::operator<(const Astronaut& other) const{
-    return m_surname < other.m_surname;
+wostream& operator<<(wostream& aout, const Astronaut& astronaut) {
+    return astronaut.print(aout);
 }
 
-bool Astronaut::operator>(const Astronaut& other) const{
-    return m_surname > other.m_surname;
+wistream& operator>>(wistream& ain, Astronaut& astronaut) {
+    return astronaut.read(ain);
 }

@@ -5,8 +5,7 @@
 #include "Models/Authorisation/Authorisation.h"
 #include "Models/Utils/Utils.h"
 
-#include "Models/MyVectorAstronaut/MyVectorAstronaut.h"
-#include "Models/MyVectorEngineer/MyVectorEngineer.h"
+#include "Models/MyVector/MyVector.h"
 
 #include <locale> 
 #include <iostream>
@@ -15,13 +14,12 @@
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
-    // setlocale(LC_ALL, "Russian");  // Для Windows
-    MyVectorAstronaut astronauts;
-    MyVectorEngineer engineers;
+    // setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
+    setlocale(LC_ALL, "Russian");  // Для Windows
+    MyVector<Astronaut> astronauts;
+    MyVector<Engineer> engineers;
     Authorisation authorisation;
-    ImportDataAstronautsFromFile(astronauts);
-    ImportDataEngineersFromFile(engineers);
+    ImportData(astronauts, engineers);
     wstring role = authorisation.AuthorisationMenu();
     if (!role.empty()) {
         MainMenu(role, astronauts, engineers);
