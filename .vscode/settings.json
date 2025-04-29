@@ -112,6 +112,7 @@
     "sstream": "cpp",
     "codecvt": "cpp",
     "ranges": "cpp",
-    "cstring": "cpp"
+    "cstring": "cpp",
+    "iomanip": "cpp"
   }
 }

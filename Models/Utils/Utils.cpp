@@ -24,12 +24,12 @@ void PrintBox(const wstring& title) {
 
 void PrintMenuHeader(const wstring& title) {
     wcout << L"\n╔══════════════════════════════╗\n";
-    wcout << L"║ " << left << setw(28) << title << L"║\n";
+    wcout << L"║ " << left << setw(29) << title << L"║\n";
     wcout << L"╠══════════════════════════════╣\n";
 }
 
 void PrintMenuItem(int num, const wstring& text) {
-    wcout << L"║ " << num << L". " << left << setw(25) << text << L"║\n";
+    wcout << L"║ " << num << L". " << left << setw(26) << text << L"║\n";
 }
 
 void PrintMenuFooter() {
@@ -44,7 +44,7 @@ void PrintError(const wstring& message) {
 
 void PrintSuccess(const wstring& message) {
     wcout << L"\n╔══════════════════════════════╗\n";
-    wcout << L"║ УСПЕХ: " << left << setw(20) << message << L"║\n";
+    wcout << L"║ УСПЕХ: " << left << setw(21) << message << L"║\n";
     wcout << L"╚══════════════════════════════╝\n";
 }
 

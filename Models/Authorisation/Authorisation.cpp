@@ -12,7 +12,7 @@ using namespace std;
 wstring Authorisation::SignIn() {
     wstring login, password;
     wcout << L"\n╔══════════════════════════════╗" << endl;
-    wcout << L"║          АВТОРИЗАЦИЯ        ║" << endl;
+    wcout << L"║          АВТОРИЗАЦИЯ         ║" << endl;
     wcout << L"╠══════════════════════════════╣" << endl;
     wcout << L"║ Введите логин: ";
     getline(wcin, login);
@@ -23,7 +23,7 @@ wstring Authorisation::SignIn() {
     wifstream file("user.txt");
     if (!file.is_open()) {
         wcout << L"\n╔══════════════════════════════╗" << endl;
-        wcout << L"║   ОШИБКА ОТКРЫТИЯ ФАЙЛА!    ║" << endl;
+        wcout << L"║   ОШИБКА ОТКРЫТИЯ ФАЙЛА!      ║" << endl;
         wcout << L"╚══════════════════════════════╝" << endl;
         return L"";
     }
@@ -91,11 +91,11 @@ wstring Authorisation::AuthorisationMenu() {
     
     while (true) {
         wcout << L"\n╔══════════════════════════════╗" << endl;
-        wcout << L"║       МЕНЮ АВТОРИЗАЦИИ      ║" << endl;
+        wcout << L"║       МЕНЮ АВТОРИЗАЦИИ       ║" << endl;
         wcout << L"╠══════════════════════════════╣" << endl;
-        wcout << L"║ 1. Войти                    ║" << endl;
-        wcout << L"║ 2. Зарегистрироваться       ║" << endl;
-        wcout << L"║ 0. Выход                    ║" << endl;
+        wcout << L"║ 1. Войти                     ║" << endl;
+        wcout << L"║ 2. Зарегистрироваться        ║" << endl;
+        wcout << L"║ 0. Выход                     ║" << endl;
         wcout << L"╚══════════════════════════════╝" << endl;
         wcout << L"Выберите действие: ";
 
