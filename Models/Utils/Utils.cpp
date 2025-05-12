@@ -16,128 +16,89 @@
 
 using namespace std;
 
-void PrintBox(const wstring& title) {
-    wcout << L"╔══════════════════════════════╗\n";
-    wcout << L"║ " << left << setw(28) << title << L"║\n";
-    wcout << L"╚══════════════════════════════╝\n";
-}
-
-void PrintMenuHeader(const wstring& title) {
-    wcout << L"\n╔══════════════════════════════╗\n";
-    wcout << L"║ " << left << setw(29) << title << L"║\n";
-    wcout << L"╠══════════════════════════════╣\n";
-}
-
-void PrintMenuItem(int num, const wstring& text) {
-    wcout << L"║ " << num << L". " << left << setw(26) << text << L"║\n";
-}
-
-void PrintMenuFooter() {
-    wcout << L"╚══════════════════════════════╝\n";
-}
-
-void PrintError(const wstring& message) {
-    wcout << L"\n╔══════════════════════════════╗\n";
-    wcout << L"║ ОШИБКА: " << left << setw(19) << message << L"║\n";
-    wcout << L"╚══════════════════════════════╝\n";
-}
-
-void PrintSuccess(const wstring& message) {
-    wcout << L"\n╔══════════════════════════════╗\n";
-    wcout << L"║ УСПЕХ: " << left << setw(21) << message << L"║\n";
-    wcout << L"╚══════════════════════════════╝\n";
-}
-
 void SortUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) {
-    PrintMenuHeader(L"СОРТИРОВКА");
-    PrintMenuItem(1, L"Космонавты");
-    PrintMenuItem(2, L"Инженеры");
-    PrintMenuFooter();
+    wcout << L"\nСОРТИРОВКА:\n";
+    wcout << L"1. Космонавты\n";
+    wcout << L"2. Инженеры\n";
     wcout << L"Выберите категорию: ";
     int userType = GetCorrectIntValue();
 
-    PrintMenuHeader(L"ТИП СОРТИРОВКИ");
-    PrintMenuItem(1, L"По возрастанию");
-    PrintMenuItem(2, L"По убыванию");
-    PrintMenuFooter();
+    wcout << L"\nТИП СОРТИРОВКИ:\n";
+    wcout << L"1. По возрастанию\n";
+    wcout << L"2. По убыванию\n";
     wcout << L"Выберите тип: ";
     int sortType = GetCorrectIntValue();
 
     if (userType == 1) astronauts.sort(sortType == 1);
     else if (userType == 2) engineers.sort(sortType == 1);
-    else PrintError(L"Неверный выбор");
+    else wcout << L"Неверный выбор\n";
 }
 
 void DeleteUser(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) {
-    PrintMenuHeader(L"УДАЛЕНИЕ");
-    PrintMenuItem(1, L"Космонавты");
-    PrintMenuItem(2, L"Инженеры");
-    PrintMenuFooter();
+    wcout << L"\nУДАЛЕНИЕ:\n";
+    wcout << L"1. Космонавты\n";
+    wcout << L"2. Инженеры\n";
     wcout << L"Выберите категорию: ";
     int userType = GetCorrectIntValue();
 
     if (userType == 1) {
         if (astronauts.empty()) {
-            PrintError(L"Нет космонавтов");
+            wcout << L"Нет космонавтов\n";
             return;
         }
 
-        PrintMenuHeader(L"СПИСОК КОСМОНАВТОВ");
+        wcout << L"\nСПИСОК КОСМОНАВТОВ:\n";
         for (size_t i = 0; i < astronauts.size(); ++i) {
-            wcout << L"║ " << i+1 << L". " << *astronauts[i] << L"║\n";
+            wcout << i+1 << L". " << *astronauts[i] << L"\n";
         }
-        PrintMenuFooter();
         wcout << L"Введите номер: ";
         int index = GetCorrectIntValue();
 
         if (index > 0 && index <= astronauts.size()) {
             astronauts.erase(index-1);
-            PrintSuccess(L"Космонавт удалён");
+            wcout << L"Космонавт удалён\n";
         } else {
-            PrintError(L"Неверный индекс");
+            wcout << L"Неверный индекс\n";
         }
     }
     else if (userType == 2) {
         if (engineers.empty()) {
-            PrintError(L"Нет инженеров");
+            wcout << L"Нет инженеров\n";
             return;
         }
 
-        PrintMenuHeader(L"СПИСОК ИНЖЕНЕРОВ");
+        wcout << L"\nСПИСОК ИНЖЕНЕРОВ:\n";
         for (size_t i = 0; i < engineers.size(); ++i) {
-            wcout << L"║ " << i+1 << L". " << *engineers[i] << L"║\n";
+            wcout << i+1 << L". " << *engineers[i] << L"\n";
         }
-        PrintMenuFooter();
         wcout << L"Введите номер: ";
         int index = GetCorrectIntValue();
 
         if (index > 0 && index <= engineers.size()) {
             engineers.erase(index-1);
-            PrintSuccess(L"Инженер удалён");
+            wcout << L"Инженер удалён\n";
         } else {
-            PrintError(L"Неверный индекс");
+            wcout << L"Неверный индекс\n";
         }
     }
     else {
-        PrintError(L"Неверный выбор");
+        wcout << L"Неверный выбор\n";
     }
 }
 
 void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) {
-    PrintMenuHeader(L"ФИЛЬТРАЦИЯ");
-    PrintMenuItem(1, L"Космонавты");
-    PrintMenuItem(2, L"Инженеры");
-    PrintMenuFooter();
+    wcout << L"\nФИЛЬТРАЦИЯ:\n";
+    wcout << L"1. Космонавты\n";
+    wcout << L"2. Инженеры\n";
     wcout << L"Выберите категорию: ";
     int userType = GetCorrectIntValue();
 
     if (userType == 1) {
-        PrintMenuHeader(L"ФИЛЬТР КОСМОНАВТОВ");
-        PrintMenuItem(1, L"По фамилии");
-        PrintMenuItem(2, L"По имени");
-        PrintMenuItem(3, L"По возрасту");
-        PrintMenuItem(4, L"По миссии");
-        PrintMenuFooter();
+        wcout << L"\nФИЛЬТР КОСМОНАВТОВ:\n";
+        wcout << L"1. По фамилии\n";
+        wcout << L"2. По имени\n";
+        wcout << L"3. По возрасту\n";
+        wcout << L"4. По миссии\n";
         wcout << L"Выберите критерий: ";
         int filterType = GetCorrectIntValue();
         wcin.ignore();
@@ -147,26 +108,24 @@ void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers)
                 wstring surname;
                 wcout << L"Введите фамилию: ";
                 getline(wcin, surname);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < astronauts.size(); ++i) {
                     if (astronauts[i]->getSurname().find(surname) != wstring::npos) {
-                        wcout << L"║ " << *astronauts[i] << L"║\n";
+                        wcout << *astronauts[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 2: {
                 wstring name;
                 wcout << L"Введите имя: ";
                 getline(wcin, name);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < astronauts.size(); ++i) {
                     if (astronauts[i]->getName().find(name) != wstring::npos) {
-                        wcout << L"║ " << *astronauts[i] << L"║\n";
+                        wcout << *astronauts[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 3: {
@@ -176,38 +135,35 @@ void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers)
                 wcout << L"Введите максимальный возраст: ";
                 maxAge = GetCorrectIntValue();
                 wcin.ignore();
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < astronauts.size(); ++i) {
                     if (astronauts[i]->getAge() >= minAge && astronauts[i]->getAge() <= maxAge) {
-                        wcout << L"║ " << *astronauts[i] << L"║\n";
+                        wcout << *astronauts[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 4: {
                 wstring mission;
                 wcout << L"Введите миссию: ";
                 getline(wcin, mission);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < astronauts.size(); ++i) {
                     if (astronauts[i]->getMission().find(mission) != wstring::npos) {
-                        wcout << L"║ " << *astronauts[i] << L"║\n";
+                        wcout << *astronauts[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
-            default: PrintError(L"Неверный выбор");
+            default: wcout << L"Неверный выбор\n";
         }
     }
     else if (userType == 2) {
-        PrintMenuHeader(L"ФИЛЬТР ИНЖЕНЕРОВ");
-        PrintMenuItem(1, L"По фамилии");
-        PrintMenuItem(2, L"По имени");
-        PrintMenuItem(3, L"По возрасту");
-        PrintMenuItem(4, L"По специализации");
-        PrintMenuFooter();
+        wcout << L"\nФИЛЬТР ИНЖЕНЕРОВ:\n";
+        wcout << L"1. По фамилии\n";
+        wcout << L"2. По имени\n";
+        wcout << L"3. По возрасту\n";
+        wcout << L"4. По специализации\n";
         wcout << L"Выберите критерий: ";
         int filterType = GetCorrectIntValue();
         wcin.ignore();
@@ -217,26 +173,24 @@ void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers)
                 wstring surname;
                 wcout << L"Введите фамилию: ";
                 getline(wcin, surname);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < engineers.size(); ++i) {
                     if (engineers[i]->getSurname().find(surname) != wstring::npos) {
-                        wcout << L"║ " << *engineers[i] << L"║\n";
+                        wcout << *engineers[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 2: {
                 wstring name;
                 wcout << L"Введите имя: ";
                 getline(wcin, name);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < engineers.size(); ++i) {
                     if (engineers[i]->getName().find(name) != wstring::npos) {
-                        wcout << L"║ " << *engineers[i] << L"║\n";
+                        wcout << *engineers[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 3: {
@@ -246,33 +200,31 @@ void FilterUsers(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers)
                 wcout << L"Введите максимальный возраст: ";
                 maxAge = GetCorrectIntValue();
                 wcin.ignore();
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < engineers.size(); ++i) {
                     if (engineers[i]->getAge() >= minAge && engineers[i]->getAge() <= maxAge) {
-                        wcout << L"║ " << *engineers[i] << L"║\n";
+                        wcout << *engineers[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
             case 4: {
                 wstring spec;
                 wcout << L"Введите специализацию: ";
                 getline(wcin, spec);
-                PrintMenuHeader(L"РЕЗУЛЬТАТЫ");
+                wcout << L"\nРЕЗУЛЬТАТЫ:\n";
                 for (size_t i = 0; i < engineers.size(); ++i) {
                     if (engineers[i]->getSpecialisation().find(spec) != wstring::npos) {
-                        wcout << L"║ " << *engineers[i] << L"║\n";
+                        wcout << *engineers[i] << L"\n";
                     }
                 }
-                PrintMenuFooter();
                 break;
             }
-            default: PrintError(L"Неверный выбор");
+            default: wcout << L"Неверный выбор\n";
         }
     }
     else {
-        PrintError(L"Неверный выбор");
+        wcout << L"Неверный выбор\n";
     }
 }
 
@@ -289,7 +241,7 @@ void ExportData(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) 
                << engineers[i]->getName() << L" " << engineers[i]->getAge() << L" "
                << engineers[i]->getSpecialisation() << L"\n";
     }
-    PrintSuccess(L"Данные экспортированы");
+    wcout << L"Данные экспортированы\n";
 }
 
 void ImportData(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) {
@@ -318,18 +270,17 @@ void ImportData(MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) 
             engineers.push_back(new Engineer(surname, name, age, specialisation));
         }
     }
-    PrintSuccess(L"Данные импортированы");
+    wcout << L"Данные импортированы\n";
 }
 
 void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>& engineers) {
     if (role == L"admin") {
         while (true) {
-            PrintMenuHeader(L"МЕНЮ АДМИНИСТРАТОРА");
-            PrintMenuItem(1, L"Просмотр данных");
-            PrintMenuItem(2, L"Экспорт данных");
-            PrintMenuItem(3, L"Импорт данных");
-            PrintMenuItem(0, L"Выход");
-            PrintMenuFooter();
+            wcout << L"\nМЕНЮ АДМИНИСТРАТОРА:\n";
+            wcout << L"1. Просмотр данных\n";
+            wcout << L"2. Экспорт данных\n";
+            wcout << L"3. Импорт данных\n";
+            wcout << L"0. Выход\n";
             wcout << L"Выберите: ";
             
             int command = GetCorrectIntValue();
@@ -337,25 +288,23 @@ void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>
             
             switch(command) {
                 case 1: {
-                    PrintMenuHeader(L"СПИСОК КОСМОНАВТОВ");
+                    wcout << L"\nСПИСОК КОСМОНАВТОВ:\n";
                     if (astronauts.empty()) {
-                        wcout << L"║ Список пуст                 ║\n";
+                        wcout << L"Список пуст\n";
                     } else {
                         for (size_t i = 0; i < astronauts.size(); i++) {
-                            wcout << L"║ " << i+1 << L". " << *astronauts[i] << L"║\n";
+                            wcout << i+1 << L". " << *astronauts[i] << L"\n";
                         }
                     }
-                    PrintMenuFooter();
                     
-                    PrintMenuHeader(L"СПИСОК ИНЖЕНЕРОВ");
+                    wcout << L"\nСПИСОК ИНЖЕНЕРОВ:\n";
                     if (engineers.empty()) {
-                        wcout << L"║ Список пуст                 ║\n";
+                        wcout << L"Список пуст\n";
                     } else {
                         for (size_t i = 0; i < engineers.size(); i++) {
-                            wcout << L"║ " << i+1 << L". " << *engineers[i] << L"║\n";
+                            wcout << i+1 << L". " << *engineers[i] << L"\n";
                         }
                     }
-                    PrintMenuFooter();
                     break;
                 }
                 case 2: {
@@ -370,22 +319,21 @@ void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>
                     return;
                 }
                 default: {
-                    PrintError(L"Неверная команда");
+                    wcout << L"Неверная команда\n";
                 }
             }
         }
     }
     else if (role == L"user") {
         while (true) {
-            PrintMenuHeader(L"МЕНЮ ПОЛЬЗОВАТЕЛЯ");
-            PrintMenuItem(1, L"Добавить космонавта");
-            PrintMenuItem(2, L"Добавить инженера");
-            PrintMenuItem(3, L"Просмотр данных");
-            PrintMenuItem(4, L"Сортировка");
-            PrintMenuItem(5, L"Фильтрация");
-            PrintMenuItem(6, L"Удаление");
-            PrintMenuItem(0, L"Выход");
-            PrintMenuFooter();
+            wcout << L"\nМЕНЮ ПОЛЬЗОВАТЕЛЯ:\n";
+            wcout << L"1. Добавить космонавта\n";
+            wcout << L"2. Добавить инженера\n";
+            wcout << L"3. Просмотр данных\n";
+            wcout << L"4. Сортировка\n";
+            wcout << L"5. Фильтрация\n";
+            wcout << L"6. Удаление\n";
+            wcout << L"0. Выход\n";
             wcout << L"Выберите: ";
             
             int command = GetCorrectIntValue();
@@ -393,41 +341,39 @@ void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>
             
             switch(command) {
                 case 1: {
-                    PrintBox(L"ДОБАВЛЕНИЕ КОСМОНАВТА");
+                    wcout << L"ДОБАВЛЕНИЕ КОСМОНАВТА:\n";
                     Astronaut* a = new Astronaut();
                     wcin >> *a;
                     astronauts.push_back(a);
-                    PrintSuccess(L"Космонавт добавлен");
+                    wcout << L"Космонавт добавлен\n";
                     break;
                 }
                 case 2: {
-                    PrintBox(L"ДОБАВЛЕНИЕ ИНЖЕНЕРА");
+                    wcout << L"ДОБАВЛЕНИЕ ИНЖЕНЕРА:\n";
                     Engineer* e = new Engineer();
                     wcin >> *e;
                     engineers.push_back(e);
-                    PrintSuccess(L"Инженер добавлен");
+                    wcout << L"Инженер добавлен\n";
                     break;
                 }
                 case 3: {
-                    PrintMenuHeader(L"СПИСОК КОСМОНАВТОВ");
+                    wcout << L"\nСПИСОК КОСМОНАВТОВ:\n";
                     if (astronauts.empty()) {
-                        wcout << L"║ Нет данных                 ║\n";
+                        wcout << L"Нет данных\n";
                     } else {
                         for (size_t i = 0; i < astronauts.size(); i++) {
-                            wcout << L"║ " << i+1 << L". " << *astronauts[i] << L"║\n";
+                            wcout << i+1 << L". " << *astronauts[i] << L"\n";
                         }
                     }
-                    PrintMenuFooter();
                     
-                    PrintMenuHeader(L"СПИСОК ИНЖЕНЕРОВ");
+                    wcout << L"\nСПИСОК ИНЖЕНЕРОВ:\n";
                     if (engineers.empty()) {
-                        wcout << L"║ Нет данных                 ║\n";
+                        wcout << L"Нет данных\n";
                     } else {
                         for (size_t i = 0; i < engineers.size(); i++) {
-                            wcout << L"║ " << i+1 << L". " << *engineers[i] << L"║\n";
+                            wcout << i+1 << L". " << *engineers[i] << L"\n";
                         }
                     }
-                    PrintMenuFooter();
                     break;
                 }
                 case 4: {
@@ -447,7 +393,7 @@ void MainMenu(wstring& role, MyVector<Astronaut>& astronauts, MyVector<Engineer>
                     return;
                 }
                 default: {
-                    PrintError(L"Неверная команда");
+                    wcout << L"Неверная команда\n";
                 }
             }
         }
@@ -459,10 +405,10 @@ int GetCorrectIntValue() {
     bool isNotOk{};
     do {
         isNotOk = false;
-        if ((wcin >> n).fail() or n < 0) {
+        if ((wcin >> n).fail() || n < 0) {
             wcin.clear();
             wcin.ignore(numeric_limits<streamsize>::max(), '\n');
-            PrintError(L"Некорректный ввод");
+            wcout << L"Некорректный ввод\n";
             wcout << L"Повторите ввод: ";
             isNotOk = true;
         }
@@ -477,7 +423,7 @@ wstring GetCorrectWstringLineValue() {
         isNotOk = false;
         if (!getline(wcin, value) || value.empty()) {
             wcin.clear();
-            PrintError(L"Пустой ввод");
+            wcout << L"Пустой ввод\n";
             wcout << L"Повторите ввод: ";
             isNotOk = true;
         }

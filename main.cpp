@@ -14,8 +14,8 @@
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
-    // setlocale(LC_ALL, "Russian");  // Для Windows
+    // setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
+    setlocale(LC_ALL, "Russian");  // Для Windows
     MyVector<Astronaut> astronauts;
     MyVector<Engineer> engineers;
     Authorisation authorisation;
