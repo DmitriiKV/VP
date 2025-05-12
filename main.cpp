@@ -16,20 +16,37 @@ using namespace std;
 int main() {
     // setlocale(LC_ALL, "ru_RU.UTF-8");  // Для Linux/MacOS
     setlocale(LC_ALL, "Russian");  // Для Windows
-    MyVector<Astronaut> astronauts;
-    MyVector<Engineer> engineers;
-    Authorisation authorisation;
-    ImportData(astronauts, engineers);
-    wstring role = authorisation.AuthorisationMenu();
-    if (!role.empty()) {
-        MainMenu(role, astronauts, engineers);
+    try {
+        MyVector<Astronaut> astronauts;
+        MyVector<Engineer> engineers;
+        Authorisation authorisation;
+        
+        ImportData(astronauts, engineers);
+        wstring role = authorisation.AuthorisationMenu();
+        
+        if (!role.empty()) {
+            MainMenu(role, astronauts, engineers);
+        }
+        
+        // Очистка памяти
+        for (size_t i = 0; i < astronauts.size(); ++i) {
+            delete astronauts[i];
+        }
+        for (size_t i = 0; i < engineers.size(); ++i) {
+            delete engineers[i];
+        }
     }
-    
-    for (size_t i = 0; i < astronauts.size(); ++i) {
-        delete astronauts[i];
+    catch (const WideException& e) {
+        wcout << L"Критическая ошибка: " << e.what_wide() << L"\n";
+        return 1;
     }
-    for (size_t i = 0; i < engineers.size(); ++i) {
-        delete engineers[i];
+    catch (const exception& e) {
+        wcout << L"Критическая ошибка: " << e.what() << L"\n";
+        return 1;
+    }
+    catch (...) {
+        wcout << L"Неизвестная критическая ошибка\n";
+        return 1;
     }
     
     return 0;

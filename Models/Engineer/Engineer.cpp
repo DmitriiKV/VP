@@ -39,13 +39,13 @@ wostream& Engineer::print(wostream& os) const {
 }
 
 wistream& Engineer::read(wistream& is) {
-    wcout << L"Введите фамилию: ";
-    m_surname = GetCorrectWstringLineValue();
-    wcout << L"Введите имя: ";
-    m_name = GetCorrectWstringLineValue();
+    m_surname = GetCorrectNameValue(L"Введите фамилию: ");
+    m_name = GetCorrectNameValue(L"Введите имя: ");
+    
     wcout << L"Введите возраст: ";
-    m_age = GetCorrectIntValue();
+    m_age = GetCorrectIntValue(20, 99);
     is.ignore();
+    
     wcout << L"Введите специализацию: ";
     m_specialisation = GetCorrectWstringLineValue();
     return is;

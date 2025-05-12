@@ -99,7 +99,7 @@ wstring Authorisation::AuthorisationMenu() {
         wcout << L"╚══════════════════════════════╝" << endl;
         wcout << L"Выберите действие: ";
 
-        int command = GetCorrectIntValue();
+        int command = GetCorrectIntValue(0, 2);
         wcin.ignore();
 
         switch(command) {
