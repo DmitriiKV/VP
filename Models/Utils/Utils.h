@@ -12,12 +12,12 @@
 
 using namespace std;
 
-class WideException : public std::exception {
+class MyException : public std::exception {
 private:
     std::wstring message;
     
 public:
-    WideException(const std::wstring& msg) : message(msg) {}
+    MyException(const std::wstring& msg) : message(msg) {}
     
     const wchar_t* what_wide() const noexcept {
         return message.c_str();
@@ -31,39 +31,39 @@ public:
     }
 };
 
-class EmptyInputException : public WideException {
+class EmptyInputException : public MyException {
 public:
-    EmptyInputException() : WideException(L"Пустой ввод") {}
+    EmptyInputException() : MyException(L"Пустой ввод") {}
 };
 
-class InvalidInputException : public WideException {
+class InvalidInputException : public MyException {
 public:
-    InvalidInputException() : WideException(L"Некорректный ввод (требуется число)") {}
+    InvalidInputException() : MyException(L"Некорректный ввод (требуется число)") {}
 };
 
-class OutOfRangeException : public WideException {
+class OutOfRangeException : public MyException {
 public:
-    OutOfRangeException(const wstring& msg) : WideException(msg) {}
+    OutOfRangeException(const wstring& msg) : MyException(msg) {}
 };
 
-class InvalidAgeException : public WideException {
+class InvalidAgeException : public MyException {
 public:
-    InvalidAgeException() : WideException(L"Недопустимый возраст (должен быть 20-99)") {}
+    InvalidAgeException() : MyException(L"Недопустимый возраст (должен быть 20-99)") {}
 };
 
-class InvalidNameException : public WideException {
+class InvalidNameException : public MyException {
 public:
-    InvalidNameException() : WideException(L"Имя/фамилия должны содержать только буквы, пробелы и дефисы") {}
+    InvalidNameException() : MyException(L"Имя/фамилия должны содержать только буквы, пробелы и дефисы") {}
 };
 
-class NameFormatException : public WideException {
+class NameFormatException : public MyException {
 public:
-    NameFormatException() : WideException(L"Неверный формат (не должно начинаться/заканчиваться пробелом или дефисом)") {}
+    NameFormatException() : MyException(L"Неверный формат (не должно начинаться/заканчиваться пробелом или дефисом)") {}
 };
 
-class FileException : public WideException {
+class FileException : public MyException {
 public:
-    FileException() : WideException(L"Ошибка работы с файлом") {}
+    FileException() : MyException(L"Ошибка работы с файлом") {}
 };
 
 bool ValidateName(const wstring& name);

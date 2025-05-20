@@ -504,7 +504,7 @@ int GetCorrectIntValue(int min = 0, int max = 100) {
 
             return value;
         }
-        catch (const WideException& e) {
+        catch (const MyException& e) {
             wcout << L"Ошибка: " << e.what_wide() << L". Повторите ввод:\n";
         }
         catch (const exception& e) {
@@ -552,7 +552,7 @@ wstring GetCorrectNameValue(const wstring& prompt) {
             
             return value;
         }
-        catch (const WideException& e) {
+        catch (const MyException& e) {
             wcout << L"Ошибка: " << e.what_wide() << L". Повторите ввод.\n";
         }
         catch (const exception& e) {
